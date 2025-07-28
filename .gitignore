@@ -1,0 +1,10 @@
+# Environment variables
+.env
+.env.*
+.flaskenv
+
+# Virtual environments
+venv/
+env/
+.venv/
+ENV/
