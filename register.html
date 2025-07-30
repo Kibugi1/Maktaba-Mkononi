@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="Neighbourhood library sharing platform"
+      content="A Neighbourhood
+    sharing platform that allows users to share books"
+    />
+    <title>Register</title>
+    <link rel="stylesheet" href="register.css" />
+  </head>
+  <body>
+    <form action=""></form>
+    <fieldset>
+      <legend>Register</legend>
+      <label for="firstName">First Name:</label>
+      <input
+        type="text"
+        name="firstName"
+        id="firstName"
+        placeholder="Input Your First Name"
+        required="true"
+        onkeydown="if(event.key==='Enter'){event.preventDefault();document.getElementById('lastName').focus()}"
+      />
+
+      <br />
+      <label for="lastName">Last Name:</label>
+      <input
+        type="text"
+        name="lastName"
+        id="lastName"
+        placeholder="Input Your Last Name"
+        required="true"
+        onkeydown="if(event.key==='Enter'){event.preventDefault();document.getElementById('email').focus()}"
+      />
+      <br />
+      <label for="email">Email:</label>
+      <input
+        type="text"
+        name="email"
+        id="email"
+        placeholder="Enter Your Email"
+        required="true"
+        onkeydown="if(event.key==='Enter'){event.preventDefault();document.getElementById('phone').focus()}"
+      />
+      <br />
+      <label for="Phone number">Phone number:</label>
+      <input
+        type="tel"
+        id="phone"
+        name="phone"
+        placeholder="xxxxxxxxxx"
+        required="true"
+        onkeydown="if(event.key==='Enter'){event.preventDefault();document.getElementById('password').focus()}"
+      />
+      <br />
+      <label for="password">Enter Password:</label>
+      <input
+        type="password"
+        id="password"
+        required
+        name="password"
+        placeholder="Your Password"
+        onkeydown="if(event.key==='Enter'){event.preventDefault();document.getElementById('confirmPassword').focus()}"
+      />
+      <br />
+      <label for="confirmPassword">Confirm Your Password:</label>
+      <input
+        type="confirmPassword"
+        name="confirmPassword"
+        id="confirmPassword"
+        required
+        placeholder="Confirm Your Password"
+      />
+      <br />
+      <button>Register</button>
+    </fieldset>
+  </body>
+</html>
