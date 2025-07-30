@@ -1,6 +1,88 @@
+/* Flex container for hero images */
+.hero-images-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 32px;
+  margin-bottom: 24px;
+}
+/* Hero image on the right side */
+.hero-image-right {
+  position: relative;
+  display: block;
+  margin-bottom: 24px;
+  max-width: 700px;
+}
+.hero-image-right img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 700px;
+  border-radius: 12px;
+}
+/* Hero image with overlayed heading */
+.hero-image {
+  position: relative;
+  display: block;
+  margin-bottom: 24px;
+  max-width: 700px;
+}
+.hero-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 700px;
+  border-radius: 12px;
+}
+.hero-image h2,
+.hero-image-right h2 {
+  position: absolute;
+  left: 50%;
+  bottom: 32px;
+  transform: translateX(-50%);
+  color: #fff;
+  font-size: 2.5rem;
+  text-shadow: 2px 2px 8px #283618;
+  margin: 0;
+  padding: 0 10px;
+  text-align: center;
+  width: 90%;
+}
+/* Top navbar styles */
+.top-navbar {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.top-navbar ul {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0 32px 0 0;
+}
+.top-navbar li {
+  display: flex;
+  align-items: center;
+}
+.top-navbar a {
+  color: #283618;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+}
+.top-navbar a:hover {
+  background: #606c38;
+  color: #fefae0;
+}
 /* Maktaba Mkononi header frame */
 body {
-  animation: slideUp 1s ease-out;
+  animation: slideUp 2s ease-out;
 }
 .main-header {
   background: #283618;
@@ -12,13 +94,12 @@ body {
   font-size: 2rem;
   letter-spacing: 2px;
   box-shadow: 0 2px 8px rgba(40, 54, 24, 0.08);
-  animation: slideUp 1s ease-out;
+  animation: slideUp 2s ease-out;
 }
-
 @keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(60px);
+    transform: translateY(80px);
   }
   to {
     opacity: 1;
