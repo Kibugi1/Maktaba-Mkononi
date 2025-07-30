@@ -1,0 +1,124 @@
+/* Center the login button */
+#loginbtn {
+  display: block;
+  margin: 0 auto 16px auto;
+}
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  width: 100%;
+  padding: 10px 12px;
+  margin: 8px 0 16px 0;
+  border: 2px solid #606c38;
+  border-radius: 4px;
+  background: #fefae0;
+  color: #283618;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus {
+  border-color: #dda15e;
+  outline: none;
+  box-shadow: 0 0 4px #dda15e33;
+}
+/* Center all content */
+.center-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+}
+
+.main-header {
+  background: #283618;
+  color: #fefae0;
+  padding: 20px 0;
+  text-align: center;
+  border-radius: 10px;
+  margin-bottom: 24px;
+  font-size: 2rem;
+  letter-spacing: 2px;
+  box-shadow: 0 2px 8px rgba(40, 54, 24, 0.08);
+  width: 100%;
+}
+
+form,
+fieldset {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+a {
+  display: block;
+  width: fit-content;
+  margin: 10px 0 0 0;
+  text-decoration: none;
+}
+/* Maktaba Mkononi header frame */
+.main-header {
+  background: #283618;
+  color: #fefae0;
+  padding: 20px 0;
+  text-align: center;
+  border-radius: 10px;
+  margin-bottom: 24px;
+  font-size: 2rem;
+  letter-spacing: 2px;
+  box-shadow: 0 2px 8px rgba(40, 54, 24, 0.08);
+}
+legend {
+  text-align: center;
+  width: 100%;
+  display: block;
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+  font-family: "Segoe UI", sans-serif;
+  font-weight: bold;
+  color: #283618;
+}
+/* Header styles */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #283618;
+}
+
+/* Sidebar styles */
+.sidebar {
+  background: #283618;
+  color: #fefae0;
+  padding: 24px 0 16px 0;
+  border-radius: 8px;
+}
+button,
+.btn {
+  background: #dda15e;
+  color: #283618;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+button:hover,
+.btn:hover {
+  background: #bc6c25;
+  color: #fefae0;
+}
+body {
+  font-family: "Segoe UI", sans-serif;
+  margin: 0;
+  background-color: #f5f7fa;
+  color: #333;
+}
