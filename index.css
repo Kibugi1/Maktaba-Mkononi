@@ -1,0 +1,27 @@
+/* Maktaba Mkononi header frame */
+body {
+  animation: slideUp 1s ease-out;
+}
+.main-header {
+  background: #283618;
+  color: #fefae0;
+  padding: 20px 0;
+  text-align: center;
+  border-radius: 10px;
+  margin-bottom: 24px;
+  font-size: 2rem;
+  letter-spacing: 2px;
+  box-shadow: 0 2px 8px rgba(40, 54, 24, 0.08);
+  animation: slideUp 1s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

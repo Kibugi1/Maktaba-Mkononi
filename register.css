@@ -1,9 +1,36 @@
+legend {
+  text-align: center;
+  width: 100%;
+  display: block;
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+  font-family: "Segoe UI", sans-serif;
+  font-weight: bold;
+  color: #283618;
+}
+/* Maktaba Mkononi header frame */
+.main-header {
+  background: #283618;
+  color: #fefae0;
+  padding: 20px 0;
+  text-align: center;
+  border-radius: 10px;
+  margin-bottom: 24px;
+  font-size: 2rem;
+  letter-spacing: 2px;
+  box-shadow: 0 2px 8px rgba(40, 54, 24, 0.08);
+  width: 100%;
+}
+body {
+  font-family: "Segoe UI", sans-serif;
+}
 /* Center the register button */
 form button[type="submit"],
 form button:last-child {
   display: block;
   margin: 0 auto 16px auto;
 }
+
 button,
 .btn {
   background: #dda15e;
