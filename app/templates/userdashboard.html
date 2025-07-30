@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Dashboard</title>
+  <link rel="stylesheet" href="/userdashboard.css">
+</head>
+<body>
+  <div class="dashboard-container">
+    
+    <aside class="sidebar">
+      <div>
+        <h2>Maktaba</h2>
+        <ul>
+          <li class="active">Dashboard</li>
+          <li>Your Books</li>
+          <li>Borrowed</li>
+          <li>Explore</li>
+          <li>Profile</li>
+        </ul>
+      </div>
+      <div>
+        <ul>
+          <li>Settings</li>
+          <li>Logout</li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      
+      <div class="topbar">
+        <div class="logo-placeholder">📚 Maktaba Mkononi</div>
+        <div class="user-controls">
+          <span>🔔</span>
+          <span>👤 Brian</span>
+        </div>
+      </div>
+
+      <div class="summary-cards">
+        <div class="card">
+          <h3>Books Listed</h3>
+          <p>12</p>
+        </div>
+        <div class="card">
+          <h3>Borrowed</h3>
+          <p>5</p>
+        </div>
+        <div class="card">
+          <h3>Due Soon</h3>
+          <p>2</p>
+        </div>
+        <div class="card">
+          <h3>Overdue</h3>
+          <p>1</p>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <input type="text" placeholder="Search by title or author">
+        <select>
+          <option value="">Filter by genre</option>
+          <option value="fiction">Fiction</option>
+          <option value="non-fiction">Non-Fiction</option>
+          <option value="poetry">Poetry</option>
+        </select>
+      </div>
+
+      <div class="notifications">
+        <h3>📢 Notifications</h3>
+        <ul>
+          <li>"A Tale of Two Cities" is due tomorrow.</li>
+          <li>"The Alchemist" return is overdue.</li>
+        </ul>
+      </div>
+
+      <section class="book-section">
+        <h2>Your Listed Books</h2>
+        <div class="book-grid">
+          <div class="book-card">
+            <img src="{{ url_for('static', filename='images/book1.jpg') }}" alt="Book Image">
+            <div class="info">
+              <h3>The Great Gatsby</h3>
+              <p class="status available">Available</p>
+              <a href="#" class="cta-btn">Edit</a>
+            </div>
+          </div>
+          <div class="book-card">
+            <img src="{{ url_for('static', filename='images/book2.jpg') }}" alt="Book Image">
+            <div class="info">
+              <h3>Think and Grow Rich</h3>
+              <p class="status borrowed">Borrowed</p>
+              <a href="#" class="cta-btn">View</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="explore-section">
+        <h2>Explore More Books</h2>
+        <div class="explore-grid">
+          <div class="explore-card">
+            <img src="{{ url_for('static', filename='images/book3.jpg') }}" alt="Book Image">
+            <div class="info">
+              <h3>Sapiens</h3>
+              <p class="status available">Available</p>
+              <a href="#" class="cta-btn">Borrow</a>
+            </div>
+          </div>
+          <div class="explore-card">
+            <img src="{{ url_for('static', filename='images/book4.jpg') }}" alt="Book Image">
+            <div class="info">
+              <h3>Becoming</h3>
+              <p class="status available">Available</p>
+              <a href="#" class="cta-btn">Borrow</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="profile-overview">
+        <h2>Your Profile</h2>
+        <p><strong>Name:</strong> Brian Kibugi</p>
+        <p><strong>Email:</strong> brian@example.com</p>
+        <p><strong>Member Since:</strong> Jan 2024</p>
+      </section>
+
+    </main>
+  </div>
+</body>
+</html>
