@@ -1,46 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="Neighbourhood library sharing platform"
-      content="A Neighbourhood
-    sharing platform that allows users to share book"
-    />
-    <title>Login</title>
-  </head>
-  <body>
-    <h1>Masomo Mkononi</h1>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="Neighbourhood library sharing platform" content="A Neighbourhood
+    sharing platform that allows users to share book" />
+  <title>Login</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+
+<body>
+  <h1 class="main-header">Maktaba Mkononi</h1>
+  <div class="center-container">
     <form action="/login" method="post">
       <fieldset>
         <legend>Login</legend>
         <label for="email">Email:</label>
-        <input
-          type="text"
-          name="email"
-          id="email"
-          placeholder="Enter Your email"
-          required="true"
-          autocomplete="on"
-        />
+        <input type="text" name="email" id="email" placeholder="Enter Your email" required="true" autocomplete="on"
+          onkeydown="if(event.key==='Enter'){event.preventDefault();document.getElementById('password').focus()}" />
         <br />
         <label for="password">Password:</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          placeholder="Enter password"
-          required="true"
-        />
+        <input type="password" name="password" id="password" placeholder="Enter password" required="true" />
         <br />
         <a href="passwordreset">forgot password?</a>
         <br />
         <button id="loginbtn" type="button">Login</button>
         <br />
         <p>Don't have an Account?</p>
-        <a href="register.html">Sign up</a>
+        <a href="register.html"><button type="button" class="btn">Sign up</button></a>
       </fieldset>
     </form>
-    <a href="index.html">Back To Home Page</a>
-  </body>
+    <a href="index.html"><button type="button" class="btn">Back To Home Page</button></a>
+  </div>
+</body>
+
 </html>

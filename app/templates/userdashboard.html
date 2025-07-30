@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>User Dashboard</title>
-  <link rel="stylesheet" href="/userdashboard.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/userdashboard.css') }}">
 </head>
+
 <body>
   <div class="dashboard-container">
-    
+
     <aside class="sidebar">
       <div>
         <h2>Maktaba</h2>
@@ -29,32 +31,33 @@
     </aside>
 
     <main class="main-content">
-      
+
       <div class="topbar">
         <div class="logo-placeholder">📚 Maktaba Mkononi</div>
         <div class="user-controls">
           <span>🔔</span>
-          <span>👤 Brian</span>
+          <span>👤 {{ user.full_name }}</span>
         </div>
       </div>
 
       <div class="summary-cards">
         <div class="card">
           <h3>Books Listed</h3>
-          <p>12</p>
+          <p>{{ user_books|length }}</p>
         </div>
         <div class="card">
           <h3>Borrowed</h3>
-          <p>5</p>
+          <p>{{ borrowed_books|length }}</p>
         </div>
         <div class="card">
           <h3>Due Soon</h3>
-          <p>2</p>
+          <p>{{ due_soon_count }}</p>
         </div>
         <div class="card">
           <h3>Overdue</h3>
-          <p>1</p>
+          <p>{{ overdue_count }}</p>
         </div>
+
       </div>
 
       <div class="filter-section">
@@ -70,54 +73,102 @@
       <div class="notifications">
         <h3>📢 Notifications</h3>
         <ul>
-          <li>"A Tale of Two Cities" is due tomorrow.</li>
-          <li>"The Alchemist" return is overdue.</li>
+          {% for note in notifications %}
+          <li class="{% if not note.is_read %}unread{% endif %}">{{ note.message }}</li>
+          {% else %}
+          <li>No new notifications.</li>
+          {% endfor %}
         </ul>
       </div>
+
+
 
       <section class="book-section">
         <h2>Your Listed Books</h2>
         <div class="book-grid">
-          <div class="book-card">
-            <img src="{{ url_for('static', filename='images/book1.jpg') }}" alt="Book Image">
-            <div class="info">
-              <h3>The Great Gatsby</h3>
-              <p class="status available">Available</p>
-              <a href="#" class="cta-btn">Edit</a>
+
+          <!-- 📌 Add New Book Card -->
+          <div class="book-card add-book-card">
+            <div class="info" style="text-align: center; padding-top: 40px;">
+              <h3 style="margin-bottom: 20px;">+ List New Book</h3>
+              <a href="{{ url_for('books.add_book') }}" class="cta-btn">Add Book</a>
             </div>
           </div>
+
+          <!-- Existing Book Cards -->
+          {% for book in user_books %}
           <div class="book-card">
-            <img src="{{ url_for('static', filename='images/book2.jpg') }}" alt="Book Image">
+            <img src="{{ book.cover_url or url_for('static', filename='images/default-book.jpg') }}" alt="Book Image">
             <div class="info">
-              <h3>Think and Grow Rich</h3>
-              <p class="status borrowed">Borrowed</p>
-              <a href="#" class="cta-btn">View</a>
+              <h3>{{ book.title }}</h3>
+              <p class="status {{ 'available' if book.is_available else 'borrowed' }}">
+                {{ 'Available' if book.is_available else 'Borrowed' }}
+              </p>
+              <a href="{{ url_for('books.view_book', book_id=book.id) }}" class="cta-btn">View</a>
             </div>
           </div>
+          {% endfor %}
+
+        </div>
+      </section>
+
+
+      <section class="borrowed-books-section">
+        <h2>Borrowed Books</h2>
+        <div class="book-grid">
+          {% for borrow in borrowed_books %}
+          <div class="book-card">
+            <img src="{{ borrow.book.cover_url or url_for('static', filename='images/default-book.jpg') }}"
+              alt="{{ borrow.book.title }}">
+            <div class="info">
+              <h3>{{ borrow.book.title }}</h3>
+              <p>Author: {{ borrow.book.author }}</p>
+              <p>Borrowed: {{ borrow.borrow_date.strftime('%b %d, %Y') }}</p>
+              <p>
+                Due: {{ borrow.return_date.strftime('%b %d, %Y') if borrow.return_date else 'N/A' }}
+                {% if borrow.actual_returned_on %}
+                <span class="status returned">Returned</span>
+                {% elif borrow.return_date and borrow.return_date < current_time %} <span class="status overdue">
+                  Overdue</span>
+                  {% else %}
+                  <span class="status due-soon">Due Soon</span>
+                  {% endif %}
+              </p>
+
+              {% if not borrow.actual_returned_on %}
+              <form method="POST" action="{{ url_for('books.return_book', borrow_id=borrow.id) }}">
+                <button onclick="openReturnModal({{ borrow.id }}, '{{ borrow.book.title }}')" class="cta-btn">Return
+                  Book</button>
+
+              </form>
+              {% endif %}
+            </div>
+          </div>
+          {% endfor %}
         </div>
       </section>
 
       <section class="explore-section">
         <h2>Explore More Books</h2>
         <div class="explore-grid">
+          {% for book in explore_books %}
           <div class="explore-card">
-            <img src="{{ url_for('static', filename='images/book3.jpg') }}" alt="Book Image">
+            <img src="{{ book.cover_url or url_for('static', filename='images/default-book.jpg') }}"
+              alt="{{ book.title }}">
             <div class="info">
-              <h3>Sapiens</h3>
-              <p class="status available">Available</p>
-              <a href="#" class="cta-btn">Borrow</a>
+              <h3>{{ book.title }}</h3>
+              <p class="status {{ 'available' if book.is_available else 'borrowed' }}">
+                {{ 'Available' if book.is_available else 'Borrowed' }}
+              </p>
+              <form method="POST" action="{{ url_for('books.borrow_book', book_id=book.id) }}">
+                <button onclick="openBorrowModal({{ book.id }}, '{{ book.title }}')" class="cta-btn">Borrow</button>
+              </form>
             </div>
           </div>
-          <div class="explore-card">
-            <img src="{{ url_for('static', filename='images/book4.jpg') }}" alt="Book Image">
-            <div class="info">
-              <h3>Becoming</h3>
-              <p class="status available">Available</p>
-              <a href="#" class="cta-btn">Borrow</a>
-            </div>
-          </div>
+          {% endfor %}
         </div>
       </section>
+
 
       <section class="profile-overview">
         <h2>Your Profile</h2>
@@ -128,5 +179,34 @@
 
     </main>
   </div>
+
+  <!-- Borrow Confirmation Modal -->
+  <div id="borrowModal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close-button" onclick="closeBorrowModal()">&times;</span>
+      <h3>Confirm Borrow Request</h3>
+      <p>Do you want to borrow <strong id="borrowBookTitle"></strong>?</p>
+      <form id="borrowForm" method="POST">
+        <button type="submit" class="cta-btn">Yes, Borrow</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Return Confirmation Modal -->
+  <div id="returnModal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close-button" onclick="closeReturnModal()">&times;</span>
+      <h3>Confirm Return</h3>
+      <p>Are you sure you want to return <strong id="returnBookTitle"></strong>?</p>
+      <form id="returnForm" method="POST">
+        <button type="submit" class="cta-btn approve">Confirm Return</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/userdashboardmodals.js') }}"></script>
+
+
 </body>
+
 </html>

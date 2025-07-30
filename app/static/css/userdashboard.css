@@ -131,6 +131,16 @@ body {
   margin-top: 0;
 }
 
+.unread {
+  font-weight: bold;
+  color: var(--dark-green);
+}
+
+.unread::before {
+  content: "🟢 ";
+}
+
+
 .section-title {
   font-size: 18px;
   margin-bottom: 10px;
@@ -145,6 +155,20 @@ body {
 
 .book-section  .book-grid h3 {
   margin-top: -15px; /* Adjust this value as needed */
+}
+
+.add-book-card {
+  background-color: #fdf6ec;
+  border: 2px dashed var(--gold);
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-book-card:hover {
+  background-color: #fff0d4;
 }
 
 
@@ -277,4 +301,28 @@ body {
   right: 15px;
   font-size: 20px;
   cursor: pointer;
+}
+
+.borrowed-books-section {
+  margin-top: 40px;
+}
+
+.status.returned {
+  background-color: #e0f7fa;
+  color: #006064;
+}
+
+.status.due-soon {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status.overdue {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+
+.modal .cta-btn {
+  margin-top: 20px;
 }

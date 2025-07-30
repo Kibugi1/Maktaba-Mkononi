@@ -131,6 +131,94 @@ body {
   font-size: 14px;
 }
 
+.pending-books-section {
+  margin-top: 40px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.pending-books-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.pending-books-table th, .pending-books-table td {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  text-align: left;
+}
+
+.cta-btn.approve {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.cta-btn.reject {
+  background-color: #f44336;
+  color: white;
+}
+
+.cta-btn.approve:hover,
+.cta-btn.reject:hover {
+  opacity: 0.8;
+}
+
+.borrow-requests-section {
+  margin-top: 40px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.borrow-requests-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.borrow-requests-table th,
+.borrow-requests-table td {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  text-align: left;
+}
+
+.returned-books-section {
+  margin-top: 40px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.returned-books-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.returned-books-table th,
+.returned-books-table td {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  text-align: left;
+}
+
+.status.pending {
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 4px 8px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+.status.available {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 4px 8px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+
 .status {
   font-weight: bold;
   padding: 2px 8px;
@@ -164,6 +252,55 @@ body {
 .cta-btn:hover {
   background-color: var(--burnt-orange);
 }
+
+/* Shared table styles */
+.awaiting-return-section,
+.notifications-panel,
+.user-management-section {
+  margin-top: 40px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.awaiting-return-table,
+.user-management-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.awaiting-return-table th,
+.awaiting-return-table td,
+.user-management-table th,
+.user-management-table td {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  text-align: left;
+}
+
+/* Notification Form */
+.notifications-panel form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 600px;
+}
+
+.notifications-panel select,
+.notifications-panel textarea {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Section headers */
+.awaiting-return-section h2,
+.notifications-panel h2,
+.user-management-section h2 {
+  margin-bottom: 15px;
+  color: var(--dark-green);
+}
+
 
 /* Modal */
 .modal {

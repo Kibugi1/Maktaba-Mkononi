@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,6 +8,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/librariandashboard.css') }}">
 
 </head>
+
 <body>
   <div class="dashboard-container">
     <!-- Sidebar -->
@@ -86,6 +88,191 @@
           <!-- More cards will be rendered here -->
         </div>
       </section>
+
+      <!-- Pending Book Listings Section -->
+      <section class="pending-books-section">
+        <h2>Pending Book Listings</h2>
+        <table class="pending-books-table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Genre</th>
+              <th>Listed By</th>
+              <th>Date Listed</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for book in books %}
+            <tr>
+              <td>{{ book.title }}</td>
+              <td>{{ book.author }}</td>
+              <td>{{ book.genre }}</td>
+              <td>{{ book.listed_by_user.full_name }}</td>
+              <td>{{ book.listed_on.strftime('%b %d, %Y') }}</td>
+              <td>
+                <a href="{{ url_for('librarian.approve_book', book_id=book.id) }}" class="cta-btn approve">Approve</a>
+                <a href="{{ url_for('librarian.delete_book', book_id=book.id) }}" class="cta-btn reject">Reject</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </section>
+      <section class="borrow-requests-section">
+        <h2>Pending Borrow Requests</h2>
+        <table class="borrow-requests-table">
+          <thead>
+            <tr>
+              <th>Book</th>
+              <th>Borrower</th>
+              <th>Requested On</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for request in requests %}
+            <tr>
+              <td>{{ request.book.title }}</td>
+              <td>{{ request.borrower.full_name }}</td>
+              <td>{{ request.borrow_date.strftime('%b %d, %Y') }}</td>
+              <td>
+                <button class="cta-btn approve"
+                  onclick="openApprovalModal({{ request.id }}, '{{ request.book.title }}')">Approve</button>
+                <a href="{{ url_for('librarian.reject_borrow', request_id=request.id) }}"
+                  class="cta-btn reject">Reject</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </section>
+
+      <section class="returned-books-section">
+        <h2>Returned Books</h2>
+        <table class="returned-books-table">
+          <thead>
+            <tr>
+              <th>Book</th>
+              <th>Borrower</th>
+              <th>Borrowed On</th>
+              <th>Returned On</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for borrow in borrows %}
+            <tr>
+              <td>{{ borrow.book.title }}</td>
+              <td>{{ borrow.borrower.full_name }}</td>
+              <td>{{ borrow.borrow_date.strftime('%b %d, %Y') }}</td>
+              <td>
+                {% if borrow.actual_returned_on %}
+                {{ borrow.actual_returned_on.strftime('%b %d, %Y') }}
+                {% else %}
+                <span class="status pending">Pending</span>
+                {% endif %}
+              </td>
+              <td>
+                {% if not borrow.actual_returned_on %}
+                <a href="{{ url_for('librarian.mark_as_returned', borrow_id=borrow.id) }}" class="cta-btn approve">Mark
+                  as Returned</a>
+                {% else %}
+                <span class="status available">Confirmed</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </section>
+      <section class="awaiting-return-section">
+        <h2>Books Awaiting Return</h2>
+        <table class="awaiting-return-table">
+          <thead>
+            <tr>
+              <th>Book</th>
+              <th>Borrower</th>
+              <th>Borrowed On</th>
+              <th>Due Date</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for borrow in awaiting %}
+            <tr>
+              <td>{{ borrow.book.title }}</td>
+              <td>{{ borrow.borrower.full_name }}</td>
+              <td>{{ borrow.borrow_date.strftime('%b %d, %Y') }}</td>
+              <td>{{ borrow.return_date.strftime('%b %d, %Y') if borrow.return_date else 'N/A' }}</td>
+              <td>
+                <span class="status pending">Awaiting Return</span>
+              </td>
+              <td>
+                <a href="{{ url_for('librarian.mark_as_returned', borrow_id=borrow.id) }}" class="cta-btn approve">
+                  Mark as Returned
+                </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </section>
+
+      <section class="notifications-panel">
+        <h2>Send Notification</h2>
+        <form method="POST" action="{{ url_for('librarian.notify_user', user_id=selected_user_id) }}">
+          <label for="selected_user_id">Select User:</label>
+          <select name="user_id" id="selected_user_id" required>
+            {% for user in users %}
+            <option value="{{ user.id }}">{{ user.full_name }} ({{ user.email }})</option>
+            {% endfor %}
+          </select>
+
+          <label for="message">Message:</label>
+          <textarea name="message" id="message" rows="4" required></textarea>
+
+          <button type="submit" class="cta-btn approve">Send Notification</button>
+        </form>
+      </section>
+
+      <section class="user-management-section">
+        <h2>Registered Users</h2>
+        <table class="user-management-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Books Listed</th>
+              <th>Books Borrowed</th>
+              <th>Joined</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for user in users %}
+            <tr>
+              <td>{{ user.full_name }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.role }}</td>
+              <td>{{ user.books_listed|length }}</td>
+              <td>{{ user.borrowings|length }}</td>
+              <td>{{ user.created_at.strftime('%b %d, %Y') }}</td>
+              <td>
+                <a href="{{ url_for('librarian.notify_user', user_id=user.id) }}" class="cta-btn">Notify</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </section>
+
+
+
+
     </div>
   </div>
 
@@ -103,6 +290,27 @@
     </div>
   </div>
 
-  <script src="/static/js/dashboard.js"></script>
+  <!-- Approval Modal -->
+  <div id="approval-modal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close-button" onclick="closeModal()">&times;</span>
+      <h3>Approve Borrow Request</h3>
+      <form id="approval-form" method="POST">
+        <input type="hidden" name="request_id" id="request_id">
+
+        <label for="pickup_time">Pickup Time:</label>
+        <input type="text" name="pickup_time" id="pickup_time" required>
+
+        <label for="pickup_location">Pickup Location:</label>
+        <input type="text" name="pickup_location" id="pickup_location" required>
+
+        <button type="submit" class="cta-btn approve">Confirm Approval</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/librarianmodals.js') }}"></script>
+
 </body>
+
 </html>
